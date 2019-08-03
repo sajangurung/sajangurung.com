@@ -1,0 +1,4 @@
+baseURL = "http://sajangurung.me/"
+languageCode = "en-us"
+title = "Sajan Gurung Blog"
+theme = "hello-friend"
