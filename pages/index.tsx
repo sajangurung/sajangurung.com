@@ -26,7 +26,7 @@ export default function Home() {
         </Head>
 
         <main className={styles.main}>
-          <Avatar name="Sajan Gurung" src="avatar.jpg" size="lg" />
+          <Avatar name="Sajan Gurung" src="avatar.jpg" size="2xl" />
           <h1 className={styles.title}>
             Hi I'm Sajan Gurung
           </h1>
@@ -35,6 +35,10 @@ export default function Home() {
             I'm a developer living in Melbourne, Australia.
             {/* <code className={styles.code}>pages/index.js</code> */}
           </p>
+
+          <div className={styles.grid}>
+            <a href="https://github.com/sajangurung"><img src="icons8-github.svg" alt=""/></a>
+          </div>
 
           {/* <div className={styles.grid}>
             <a href="https://nextjs.org/docs" className={styles.card}>
