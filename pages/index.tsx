@@ -38,6 +38,7 @@ export default function Home() {
 
           <div className={styles.grid}>
             <a href="https://github.com/sajangurung"><img src="icons8-github.svg" alt=""/></a>
+            <a href="https://www.linkedin.com/in/sajangurung/"><img src="icons8-linkedin.svg" alt=""/></a>
           </div>
 
           {/* <div className={styles.grid}>
