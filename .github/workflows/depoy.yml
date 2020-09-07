@@ -28,6 +28,8 @@ jobs:
         npm test
         npm run export
     - name: Copy files to s3 bucket
+      with:
+        CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
       run: |
         aws s3 sync out/ s3://sajangurung.me --delete
         aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID
