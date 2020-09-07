@@ -28,7 +28,7 @@ jobs:
         npm test
         npm run export
     - name: Copy files to s3 bucket
-      with:
+      env:
         CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
       run: |
         aws s3 sync out/ s3://sajangurung.me --delete
