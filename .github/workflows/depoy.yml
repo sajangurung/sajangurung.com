@@ -15,6 +15,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Deploy Infrastructure
+      run: |
+        sam deploy \
+        --template-file template.yaml \
+        --stack-name blog \
+        --capabilities CAPABILITY_IAM \
+        --parameter-override ACMArn=${ACMARN} CNAMEs=${CNAMES} HostedZoneName=${HOSTED_ZONE} \
+        --no-fail-on-empty-changeset
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
