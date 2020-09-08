@@ -31,7 +31,12 @@ Resources:
     Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
     Properties:
       CloudFrontOriginAccessIdentityConfig:
-        Comment: "Access identity for web"
+        Comment:
+          !Join
+            - ''
+            - access-identity
+            - Ref: WebBucket
+            - .s3.amazonaws.com
 
   WebBucketPolicy:
     Type: AWS::S3::BucketPolicy
