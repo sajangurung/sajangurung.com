@@ -25,7 +25,7 @@ jobs:
         --template-file template.yaml \
         --stack-name blog \
         --capabilities CAPABILITY_IAM \
-        --parameter-overrides ACMArn=${ACMARN} CNAMEs=${CNAMES} HostedZoneName=${HOSTED_ZONE} \
+        --parameter-overrides ACMArn=$ACMARN CNAMEs=$CNAMES HostedZoneName=$HOSTED_ZONE \
         --no-fail-on-empty-changeset
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
