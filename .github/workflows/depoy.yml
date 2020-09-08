@@ -16,6 +16,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Deploy Infrastructure
+      env:
+        ACMARN: ${{ secrets.ACMARN }}
+        CNAMES: ${{ secrets.CNAMES }}
+        HOSTED_ZONE: ${{ secrets.CNAMES }}
       run: |
         sam deploy \
         --template-file template.yaml \
