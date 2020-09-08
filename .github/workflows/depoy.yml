@@ -29,8 +29,8 @@ jobs:
     - name: Deploy Infrastructure
       env:
         ACMARN: ${{ secrets.ACMARN }}
-        CNAMES: ${{ secrets.CNAMES }}
-        HOSTED_ZONE: ${{ secrets.CNAMES }}
+        CNAMES: 'sajangurung.com'
+        HOSTED_ZONE: 'sajangurung.com.'
       run: |
         sam deploy \
         --template-file template.yaml \
