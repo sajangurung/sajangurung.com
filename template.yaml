@@ -20,7 +20,7 @@ Parameters:
 Conditions:
   HasWebACL:
     Fn::Not:
-      - Fn::Equals:
+      - !Equals
         - Ref: WebACLId
         - ""
 Resources:
@@ -47,17 +47,17 @@ Resources:
               - s3:ListBucket
             Principal:
               AWS:
-                !Join:
+                !Join
                   - ' '
                   - - arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity
                     - Ref: CloudFrontIdentity
             Resource:
-              - Fn::GetAtt:
+              - !GetAtt
                 - WebBucket
                 - Arn
-              - !Join:
+              - !Join
                 - /
-                - - !GetAtt:
+                - - !GetAtt
                       - WebBucket
                       - Arn
                   - '*'
@@ -74,7 +74,7 @@ Resources:
           AcmCertificateArn:
             Ref: ACMArn
         WebACLId:
-          Fn::If:
+          !If
             - HasWebACL
             - Ref: WebACLId
             - Ref: AWS::NoValue
@@ -93,12 +93,12 @@ Resources:
         Origins:
           - Id: S3-Primary
             DomainName:
-              Fn::GetAtt:
+              !GetAtt
                 - WebBucket
                 - DomainName
             S3OriginConfig:
               OriginAccessIdentity:
-                !Join:
+                !Join
                   - /
                   - - origin-access-identity/cloudfront
                     - Ref: CloudFrontIdentity
@@ -110,7 +110,7 @@ Resources:
         Ref: HostedZoneName
       RecordSets:
         - Name:
-            Fn::Select:
+            !Select
               - 0
               - Ref: CNAMEs
           Type: A
