@@ -47,7 +47,7 @@ Resources:
               - s3:ListBucket
             Principal:
               AWS:
-                Fn::Join:
+                !Join:
                   - ' '
                   - - arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity
                     - Ref: CloudFrontIdentity
@@ -55,9 +55,9 @@ Resources:
               - Fn::GetAtt:
                 - WebBucket
                 - Arn
-              - Fn::Join:
+              - !Join:
                 - /
-                - - Fn::GetAtt:
+                - - !GetAtt:
                       - WebBucket
                       - Arn
                   - '*'
@@ -98,7 +98,7 @@ Resources:
                 - DomainName
             S3OriginConfig:
               OriginAccessIdentity:
-                Fn::Join:
+                !Join:
                   - /
                   - - origin-access-identity/cloudfront
                     - Ref: CloudFrontIdentity
@@ -118,7 +118,7 @@ Resources:
             # HostedZone for cloudfront is always this value https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-aliastarget.html
             HostedZoneId: Z2FDTNDATAQYW2
             DNSName:
-              Fn::GetAtt:
+              !GetAtt:
                 - CloudfrontDistribution
                 - DomainName
 
