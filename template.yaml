@@ -34,7 +34,7 @@ Resources:
         Comment:
           !Join
             - ''
-            - - access-identity
+            - - access-identity-
               - Ref: WebBucket
               - .s3.amazonaws.com
 

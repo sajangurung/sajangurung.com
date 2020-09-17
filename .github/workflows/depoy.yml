@@ -26,21 +26,40 @@ jobs:
         npm run build --if-present
         npm test
         npm run export
-    - name: Deploy Infrastructure
+    # - name: Deploy Infrastructure
+    #   env:
+    #     ACMARN: ${{ secrets.ACMARN }}
+    #     CNAMES: 'sajangurung.com'
+    #     HOSTED_ZONE: 'sajangurung.com.'
+    #   run: |
+    #     sam deploy \
+    #     --template-file template.yaml \
+    #     --stack-name blog \
+    #     --capabilities CAPABILITY_IAM \
+    #     --parameter-overrides ACMArn=$ACMARN CNAMEs=$CNAMES HostedZoneName=$HOSTED_ZONE \
+    #     --no-fail-on-empty-changeset
+    - name: Deploy
+      id: blog
+      uses: aws-actions/aws-cloudformation-github-deploy@master
       env:
         ACMARN: ${{ secrets.ACMARN }}
         CNAMES: 'sajangurung.com'
         HOSTED_ZONE: 'sajangurung.com.'
-      run: |
-        sam deploy \
-        --template-file template.yaml \
-        --stack-name blog \
-        --capabilities CAPABILITY_IAM \
-        --parameter-overrides ACMArn=$ACMARN CNAMEs=$CNAMES HostedZoneName=$HOSTED_ZONE \
-        --no-fail-on-empty-changeset
-    - name: Copy files to s3 bucket
+      with:
+        name: blog
+        template:
+        no-fail-on-empty-changeset: "1"
+        parameter-overrides: >-
+          ACMArn=$ACMARN,
+          CNAMEs=$CNAMES,
+          HostedZoneName=$HOSTED_ZONE
+    - name: Output
       env:
-        CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-      run: |
-        aws s3 sync out/ s3://sajangurung.com --delete
-        aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths / /index.html
+        OUTPUTS: ${{ toJson(steps.blog.outputs) }}
+      run: echo "$OUTPUTS"
+    # - name: Copy files to s3 bucket
+    #   env:
+    #     CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+    #   run: |
+    #     aws s3 sync out/ s3://sajangurung.com --delete
+    #     aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths / /index.html
