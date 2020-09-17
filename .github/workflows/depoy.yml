@@ -54,7 +54,9 @@ jobs:
           HostedZoneName=${{ env.HOSTED_ZONE }}
     - name: Copy files to s3 bucket
       env:
-        OUTPUTS: ${{ toJson(steps.blog.outputs) }}
+        WEBBUCKET: ${{ fromJson(steps.blog.outputs.WebBucket) }}
+        DISTRIBUTION: ${{ fromJson(steps.blog.outputs.CloudfrontDistribution) }}
+
       run: |
-        aws s3 sync out/ s3://"${{ env.OUTPUTS.WebBucket }}" --delete
-        aws cloudfront create-invalidation --distribution-id "${{ env.OUTPUTS.CloudfrontDistribution }}" --paths / /index.html
+        aws s3 sync out/ s3://"${{ env.WEBBUCKET }}" --delete
+        aws cloudfront create-invalidation --distribution-id "${{ env.CloudfrontDistribution }}" --paths / /index.html
