@@ -42,7 +42,6 @@ jobs:
       id: blog
       uses: aws-actions/aws-cloudformation-github-deploy@v1
       env:
-        ACMARN: ${{ secrets.ACMARN }}
         CNAMES: 'sajangurung.com'
         HOSTED_ZONE: 'sajangurung.com.'
       with:
@@ -51,8 +50,8 @@ jobs:
         no-fail-on-empty-changeset: "1"
         parameter-overrides: >-
           ACMArn=${{ secrets.ACMARN }},
-          CNAMEs=$CNAMES,
-          HostedZoneName=$HOSTED_ZONE
+          CNAMEs=${{ env.CNAMES }},
+          HostedZoneName=${{ env.HOSTED_ZONE }}
     - name: Output
       env:
         OUTPUTS: ${{ toJson(steps.blog.outputs) }}
