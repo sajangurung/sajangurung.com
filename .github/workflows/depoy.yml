@@ -52,13 +52,9 @@ jobs:
           ACMArn=${{ secrets.ACMARN }},
           CNAMEs=${{ env.CNAMES }},
           HostedZoneName=${{ env.HOSTED_ZONE }}
-    - name: Output
+    - name: Copy files to s3 bucket
       env:
         OUTPUTS: ${{ toJson(steps.blog.outputs) }}
-      run: echo "$OUTPUTS"
-    # - name: Copy files to s3 bucket
-    #   env:
-    #     CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-    #   run: |
-    #     aws s3 sync out/ s3://sajangurung.com --delete
-    #     aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths / /index.html
+      run: |
+        aws s3 sync out/ s3://"${{ env.OUTPUTS.WebBucket }}" --delete
+        aws cloudfront create-invalidation --distribution-id "${{ env.OUTPUTS.CloudfrontDistribution }}" --paths / /index.html
