@@ -40,7 +40,7 @@ jobs:
     #     --no-fail-on-empty-changeset
     - name: Deploy
       id: blog
-      uses: aws-actions/aws-cloudformation-github-deploy@master
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
       env:
         ACMARN: ${{ secrets.ACMARN }}
         CNAMES: 'sajangurung.com'
