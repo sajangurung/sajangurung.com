@@ -13,7 +13,7 @@ import { Avatar, AvatarBadge } from "@chakra-ui/core";
 
 
 export default function Home() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   return (
     <ThemeProvider>
       <ColorModeProvider value={colorMode}>
@@ -25,21 +25,28 @@ export default function Home() {
         </Head>
 
         <main className={styles.main}>
-          <Avatar name="Sajan Gurung" src="avatar.jpg" size="2xl" />
+          <Avatar name="Sajan Gurung" src="avatar.jpg" size="xl" />
           <h1 className={styles.title}>
-            Namaste I'm Sajan Gurung
+          👋 I'm Sajan
           </h1>
 
           <p className={styles.description}>
             I'm a software developer from Melbourne Australia.
           </p>
 
-          <div className={`${styles.grid} ${styles.gridColumn}`}>
+          <div className={`${styles.grid}`}>
             <div className={styles.card}>
-              <p>Currently working as a Software Developer at Findex</p>
+              <h3>Findex</h3>
+              <p>I'm currently working as a software developer at Findex. I write code to make our internal customers workflow efficient.</p>
             </div>
 
             <div className={styles.card}>
+              <h3>Propagate Digital</h3>
+              <p>During my 3 and half years as a full stack developer, I helped to design and deliver solutions across roster management, several e-commerce apps and custom solutions, taking full ownership from design to deployment.</p>
+            </div>
+
+            <div className={styles.card}>
+            <h3>Skills</h3>
               <p>Typescript, Node.js, Angular, Laravel, AWS, Jest</p>
             </div>
           </div>
