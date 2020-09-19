@@ -42,8 +42,8 @@ jobs:
           HostedZoneName=${{ env.HOSTED_ZONE }}
     - name: Copy files to s3 bucket
       env:
-        WEBBUCKET: 'E29NYYDSQNHXX'
-        DISTRIBUTION: 'blog-webbucket-1excsx8k0cmn8'
+        DISTRIBUTION: 'E29NYYDSQNHXX'
+        WEBBUCKET: 'blog-webbucket-1excsx8k0cmn8'
       run: |
         aws s3 sync out/ s3://"${{ env.WEBBUCKET }}" --delete
         aws cloudfront create-invalidation --distribution-id "${{ env.CloudfrontDistribution }}" --paths / /index.html
