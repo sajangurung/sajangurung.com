@@ -27,7 +27,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-southeast-2
     - name: Deploy
-      id: blog
+      id: deploy
       uses: aws-actions/aws-cloudformation-github-deploy@v1
       env:
         CNAMES: 'sajangurung.com'
@@ -42,8 +42,13 @@ jobs:
           HostedZoneName=${{ env.HOSTED_ZONE }}
     - name: Copy files to s3 bucket
       env:
+        STACK_NAME: blog
         DISTRIBUTION: 'E29NYYDSQNHXX'
         WEBBUCKET: 'blog-webbucket-1excsx8k0cmn8'
+        QUERY_BUCKET: Stacks[0].Outputs[?OutputKey=='WebBucket'].OutputValue
+        QUERY_DISTRIBUTION: Stacks[0].Outputs[?OutputKey=='CloudfrontDistribution'].OutputValue
       run: |
-        aws s3 sync out/ s3://"${{ env.WEBBUCKET }}" --delete
-        aws cloudfront create-invalidation --distribution-id "${{ env.DISTRIBUTION }}" --paths / /index.html
+        export BUCKET=\"$(aws cloudformation describe-stacks --stack-name "${{ env.STACK_NAME }}" --query ${{ env.QUERY_BUCKET }} --output text)\"
+        export DISTRIBUTION=\"$(aws cloudformation describe-stacks --stack-name "${{ env.STACK_NAME }}" --query ${{ env.QUERY_DISTRIBUTION }} --output text)\"
+        aws s3 sync out/ s3://$BUCKET --delete
+        aws cloudfront create-invalidation --distribution-id $DISTRIBUTION --paths \"/*\"
