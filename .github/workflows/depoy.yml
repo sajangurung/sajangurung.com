@@ -26,20 +26,20 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-southeast-2
-    - name: Deploy
-      id: deploy
-      uses: aws-actions/aws-cloudformation-github-deploy@v1
-      env:
-        CNAMES: 'sajangurung.com'
-        HOSTED_ZONE: 'sajangurung.com.'
-      with:
-        name: blog
-        template: template.yaml
-        no-fail-on-empty-changeset: "1"
-        parameter-overrides: >-
-          ACMArn=${{ secrets.ACMARN }},
-          CNAMEs=${{ env.CNAMES }},
-          HostedZoneName=${{ env.HOSTED_ZONE }}
+    # - name: Deploy
+    #   id: deploy
+    #   uses: aws-actions/aws-cloudformation-github-deploy@v1
+    #   env:
+    #     CNAMES: 'sajangurung.com'
+    #     HOSTED_ZONE: 'sajangurung.com.'
+    #   with:
+    #     name: blog
+    #     template: template.yaml
+    #     no-fail-on-empty-changeset: "1"
+    #     parameter-overrides: >-
+    #       ACMArn=${{ secrets.ACMARN }},
+    #       CNAMEs=${{ env.CNAMES }},
+    #       HostedZoneName=${{ env.HOSTED_ZONE }}
     - name: Copy files to s3 bucket
       env:
         STACK_NAME: blog
@@ -50,5 +50,7 @@ jobs:
       run: |
         export BUCKET=\"$(aws cloudformation describe-stacks --stack-name ${{ env.STACK_NAME }} --query ${{ env.QUERY_BUCKET }} --output text)\"
         export DISTRIBUTION=\"$(aws cloudformation describe-stacks --stack-name ${{ env.STACK_NAME }} --query ${{ env.QUERY_DISTRIBUTION }} --output text)\"
-        aws s3 sync out/ s3://$BUCKET --delete
-        aws cloudfront create-invalidation --distribution-id $DISTRIBUTION --paths \"/*\"
+        echo $BUCKET
+        echo $DISTRIBUTION
+        # aws s3 sync out/ s3://$BUCKET --delete
+        # aws cloudfront create-invalidation --distribution-id $DISTRIBUTION --paths \"/*\"
