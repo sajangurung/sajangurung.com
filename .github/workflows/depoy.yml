@@ -53,5 +53,5 @@ jobs:
         DISTRIBUTION=\'$(aws cloudformation describe-stacks --stack-name ${{ env.STACK_NAME }} --query ${{ env.QUERY_DISTRIBUTION }} --output text)\'
         echo $BUCKET
         echo $DISTRIBUTION
-        # aws s3 sync out/ s3://$BUCKET --delete
-        # aws cloudfront create-invalidation --distribution-id $DISTRIBUTION --paths \"/*\"
+        aws s3 sync out/ s3://$BUCKET --delete
+        aws cloudfront create-invalidation --distribution-id $DISTRIBUTION --paths \"/*\"
