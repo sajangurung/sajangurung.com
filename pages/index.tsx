@@ -31,8 +31,10 @@ export default function Home() {
           </h1>
 
           <p className={styles.description}>
-            I'm a software developer from Melbourne Australia.
+            I'm a software developer based in Melbourne, Australia.
           </p>
+          <small>But, the picture was taken on a hike to Cradle Mountain, Tasmania.</small>
+
 
           <div className={`${styles.grid}`}>
             <div className={styles.card}>
@@ -54,6 +56,7 @@ export default function Home() {
           <div className={styles.grid}>
             <a href="https://github.com/sajangurung" className={styles.col}><img src="icons8-github.svg" alt=""/></a>
             <a href="https://www.linkedin.com/in/sajangurung/" className={styles.col}><img src="icons8-linkedin.svg" alt=""/></a>
+            <a href="https://sajangurungk.medium.com" className={styles.col}><img src="icons8-medium.svg" alt=""/></a>
           </div>
         </main>
       </div>
