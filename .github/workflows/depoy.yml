@@ -54,4 +54,4 @@ jobs:
         echo $BUCKET
         echo $DISTRIBUTION
         aws s3 sync out/ s3://$WEBBUCKET --delete
-        aws cloudfront create-invalidation --distribution-id $DISTRIBUTION --paths \"/*\"
+        aws cloudfront create-invalidation --distribution-id $DISTRIBUTION --paths / /index.html
