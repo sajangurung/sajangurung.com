@@ -15,9 +15,14 @@ export default function Home() {
   const { colorMode } = useColorMode();
   const experiences = [
     {
+      title: 'Bunnings',
+      descripton:
+        "I'm currently at Bunnings working in a team to make search and filtering experience better.",
+    },
+    {
       title: 'Findex',
       descripton:
-        "I'm currently working as a software developer at Findex. I write code to make our internal customers workflow efficient.",
+        "At Findex, I designed and implemented various microservices to make our internal customers workflow efficient",
     },
     {
       title: 'Propagate Digital',
@@ -57,7 +62,7 @@ export default function Home() {
               })}
               <div className={styles.card}>
                 <h3>Skills</h3>
-                <p>Typescript, Node.js, Angular, Laravel, AWS, Jest</p>
+                <p>Typescript, Node.js, Angular, Laravel, AWS, Azure, Jest</p>
               </div>
             </div>
 
