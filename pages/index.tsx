@@ -47,9 +47,6 @@ export default function Home() {
             <p className={styles.description}>
               I'm a software developer based in Melbourne, Australia.
             </p>
-            <small>
-              But, the picture was taken on a hike to Cradle Mountain, Tasmania.
-            </small>
 
             <div className={`${styles.grid}`}>
               {experiences.map(e => {
