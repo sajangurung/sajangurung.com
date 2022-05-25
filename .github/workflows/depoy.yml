@@ -42,14 +42,14 @@ jobs:
     - name: Copy files to s3 bucket
       env:
         STACK_NAME: blog
-        DISTRIBUTION: 'E29NYYDSQNHXX'
-        WEBBUCKET: 'blog-webbucket-1excsx8k0cmn8'
+        # DISTRIBUTION: 'E29NYYDSQNHXX'
+        # WEBBUCKET: 'blog-webbucket-1excsx8k0cmn8'
         QUERY_BUCKET: Stacks[0].Outputs[?OutputKey=='WebBucket'].OutputValue
         QUERY_DISTRIBUTION: Stacks[0].Outputs[?OutputKey=='CloudfrontDistribution'].OutputValue
       run: |
         aws cloudformation describe-stacks --stack-name ${{ env.STACK_NAME }} --query ${{ env.QUERY_BUCKET }} --output text
-        # BUCKET=\'$(aws cloudformation describe-stacks --stack-name ${{ env.STACK_NAME }} --query ${{ env.QUERY_BUCKET }} --output text)\'
-        # DISTRIBUTION=\'$(aws cloudformation describe-stacks --stack-name ${{ env.STACK_NAME }} --query ${{ env.QUERY_DISTRIBUTION }} --output text)\'
+        BUCKET=\'$(aws cloudformation describe-stacks --stack-name ${{ env.STACK_NAME }} --query ${{ env.QUERY_BUCKET }} --output text)\'
+        DISTRIBUTION=\'$(aws cloudformation describe-stacks --stack-name ${{ env.STACK_NAME }} --query ${{ env.QUERY_DISTRIBUTION }} --output text)\'
         echo $BUCKET
         echo $DISTRIBUTION
         aws s3 sync out/ s3://$WEBBUCKET --delete
