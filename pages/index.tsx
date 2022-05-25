@@ -49,9 +49,9 @@ export default function Home() {
             </p>
 
             <div className={`${styles.grid}`}>
-              {experiences.map(e => {
+              {experiences.map((e, index) => {
                 return (
-                  <div className={styles.card}>
+                  <div className={styles.card} key={index}>
                     <h3>{e.title}</h3>
                     <p>{e.descripton}</p>
                   </div>
@@ -60,6 +60,41 @@ export default function Home() {
               <div className={styles.card}>
                 <h3>Skills</h3>
                 <p>Typescript, Node.js, Angular, Laravel, AWS, Azure, Jest</p>
+              </div>
+
+              <div className={styles.card}>
+                <h3>Uses</h3>
+                <h4>Computer/Office</h4>
+                <ul>
+                  <li>16" Macbook Pro (2021)</li>
+                  <li>27" Dell 4k S2722QC</li>
+                  <li>Keychron K2</li>
+                  <li>Omnidesk Desk</li>
+                  <li>Herman Miller Aeron</li>
+                </ul>
+
+                <h4>Coding</h4>
+                <ul>
+                  <li>Editor: VSCode</li>
+                  <li>Terminal: iTerm2</li>
+                </ul>
+
+                <h4>Software</h4>
+                <ul>
+                  <li>LastPass</li>
+                  <li>Spotify</li>
+                  <li>Grammarly</li>
+                  <li>Postman</li>
+                  <li>Loom</li>
+                </ul>
+
+                <h4>Other Tech</h4>
+                <ul>
+                  <li>Blue Yeti Mic</li>
+                  <li>Bose QC Series 1 (2017)</li>
+                  <li>Pixel 3</li>
+                  <li>Jabra Elite Active 75t</li>
+                </ul>
               </div>
             </div>
 
